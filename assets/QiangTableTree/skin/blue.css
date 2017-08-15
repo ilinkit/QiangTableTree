@@ -1,0 +1,41 @@
+/**表头的背景色**/
+.qiang-table-tree .QTTHeader{
+	background-color:#CFCFCF;
+}
+/**每条记录底部的行线颜色**/
+.qiang-table-tree .tValue{
+	border-bottom-color:#639CFA;
+}
+
+/**树状部分底部的颜色**/
+.qiang-table-tree .tAction{
+	border-bottom-color:#639CFA;
+}
+
+/**横向-辅助线虚线的颜色**/
+.qiang-table-tree .tAction:before{
+	border-top-color:#639CFA;
+}
+
+/**纵向-辅助线虚线的颜色**/
+.qiang-table-tree .qttNode:before{
+	border-left-color:#639CFA;
+}
+
+/**悬浮的背景色**/
+.qiang-table-tree .qttItem:hover{
+	background-color:#E8E8FF;	
+}
+
+/**选中节点的样式**/
+.qiang-table-tree .qttNode.selected>.qttItem .tAction{
+	color:#FFF;
+	background-color:#639CFA;
+}
+
+/**高亮节点的样式**/
+.qiang-table-tree .qttNode.highlight>.qttItem .tAction{
+	color:#FFF;
+	background-color:#1B63DA;
+}
+

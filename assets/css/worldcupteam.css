@@ -1,0 +1,130 @@
+.main-box{
+	position:absolute;
+	top:0px;
+	left:0px;
+	right:0px;
+	bottom:0px;
+	
+	font-family:
+'Helvetica Neue', 'Luxi Sans', 'DejaVu Sans', Tahoma, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei';
+}
+
+.main-box .main-bar{
+	position:absolute;
+	top:0px;
+	left:0px;
+	right:0px;
+	height:50px;
+	
+	padding:10px;
+	background-color:#E8E8FF;
+}
+.main-box .main-bar h1{
+	font-weight:bold;
+	font-size:1.5em;
+}
+.main-box .main-content{
+	position:absolute;
+	top:50px;
+	left:0px;
+	right:0px;
+	bottom:50px;
+	
+	background-color:#FFF;
+}
+.main-box .main-footer{
+	position:absolute;
+	left:0px;
+	right:0px;
+	bottom:0px;
+	height:50px;
+	
+	background-color:#E8E8FF;
+}
+
+.main-box .main-panel{
+	position:relative;
+	width:100%;
+	height:100%;
+	overflow:auto;
+}
+
+.action-btn{
+	display:inline-block;
+	height:30px;
+	line-height:30px;
+	padding:0 20px;
+	text-align:center;
+	color:#FFF;
+	background-color:#4285F4;
+	cursor:pointer;
+}
+
+.qiang-table-tree .td-1,
+.qiang-table-tree .td-2,
+.qiang-table-tree .td-3,
+.qiang-table-tree .td-4,
+.qiang-table-tree .td-5,
+.qiang-table-tree .td-6,
+.qiang-table-tree .td-7,
+.qiang-table-tree .td-8{
+	width:12%;
+	text-align:center;
+}
+
+.qiang-table-tree .td-8{
+	color:#F00;
+	font-weight:bold;
+}
+
+.qiang-table-tree .t-text img.flag-img{
+	display:inline-block;
+	margin-right:10px;
+}
+
+.qiang-table-tree .qttNode>.qttItem .tLabel{
+	left:0;
+}
+
+.qiang-table-tree .qttNode.move_right>.qttItem .tLabel{
+	color:#F08;
+	left:4rem;
+	transition: left 1s;
+}
+
+.main-footer{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	text-align:center;
+}
+.main-footer a{
+	display:inline-block;
+	margin-right:10px;
+}
+.main-footer input{
+	display:inline-block;
+	padding:0 5px;
+	height:40px;
+	line-height:40px;
+	border-color: #FBFBFB;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+    box-sizing: border-box;
+    background-color: #F2F2F2;
+}
+
+@media screen and (max-width:400px) {
+	.main-box .main-bar h1{
+		font-size:1em;
+	}
+	.qiang-table-tree .tLabel{
+		width:100%;
+	}
+	.qiang-table-tree .tValue{
+		display:none;
+	}
+}
+
+

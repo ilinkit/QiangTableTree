@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh"><head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QiangTableTree Example - FIFA 2014</title>
+<link href="assets/css/reset.css" rel="stylesheet">
+<link href="assets/QiangTableTree/jquery.qtt.min.css" rel="stylesheet">
+<link href="assets/QiangTableTree/skin/blue.css" rel="stylesheet">
+<link href="assets/css/worldcupteam.css" rel="stylesheet">
+<style type="text/css">
+  .hide{
+	display:none;
+  }
+  .image_canvas{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+  }
+  .draw_canvas{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	
+	background-color:#000;
+  }
+  .image_only{
+	opacity:0;
+  }
+  
+  .flash-box{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	z-index: 101 ;
+  }
+</style>
+</head>
+<body>
+<!--start of layout code -->
+<div class="main-box">
+	<div class="main-bar">
+		<h1>QiangTableTree Demo ---- FIFA 2014 </h1>
+	</div>
+	<div id="main-content" class="main-content">
+		<div class="qtt-box main-panel">
+			<div id="qiang-table-tree" class="qiang-table-tree">
+				<!--start of QTTHeader-->
+				<div class="QTTHeader">
+					  <div class="treeHeaderBox">
+						  <span class="tLabel">Country</span>
+						  <ul class="tValue">
+							  <li class="td-1">Pld</li> 
+							  <li class="td-2">W</li> 
+							  <li class="td-3">D</li> 
+							  <li class="td-4">L</li> 
+							  <li class="td-5">GF</li> 
+							  <li class="td-6">GA</li> 
+							  <li class="td-7">GD</li> 
+							  <li class="td-8">Pts</li> 
+						  </ul>
+					  </div>
+				</div>
+				<!--end of QTTHeader-->
+				<!--start of QTTContainer-->
+				<div class="QTTContainer">
+					<!--data of Qiang Table Tree -->
+				</div>
+				<!--end of QTTContainer-->
+			</div>
+		</div>
+	</div>
+	<div class="main-footer">
+		<a class="header-logo-invertocat my-0" href="https://github.com/" aria-label="Homepage" data-ga-click="(Logged out) Header, go to homepage, icon:logo-wordmark">
+		  <svg aria-hidden="true" class="octicon octicon-mark-github" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+		</a>
+		<input id="search-input" class="search-input" placeholder="Please enter keyword..." />
+	</div>
+</div>
+<!--end of layout code -->
+<!--start of dialog code -->
+<div class="flash-box">
+ <canvas id="myImage" class="image_canvas image_only" ></canvas>
+ <canvas id="myWordImage" class="image_canvas image_only" ></canvas>
+ <canvas id="myWord" class="draw_canvas" ></canvas>
+ <canvas id="myPoint" class="image_canvas" ></canvas>
+ <canvas id="myFly" class="image_canvas" ></canvas>
+ <canvas id="myCanvas" class="draw_canvas" ></canvas>
+</div>
+
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/FlyFlash/fly.js"></script>
+<script type="text/javascript" src="assets/FlyFlash/game.js"></script>
+<script type="text/javascript" src="assets/FlyFlash/flyFlash.js"></script>
+<script type="text/javascript" src="assets/QiangTableTree/jquery.qtt.min.js"></script>
+<script type="text/javascript" src="assets/js/worldcupteam.js"></script>
+<script type="text/javascript" >
+	//执行凤凰动画
+	window.qiang.phoenixFlashFn();	
+</script>
+
+</body></html>

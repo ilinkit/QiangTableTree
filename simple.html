@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh"><head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simple example of QiangTableTree</title>
+<link href="assets/css/reset.css" rel="stylesheet">
+<link href="assets/QiangTableTree/jquery.qtt.min.css" rel="stylesheet">
+<link href="assets/QiangTableTree/skin/blue.css" rel="stylesheet">
+<style type="text/css">
+  
+</style>
+</head>
+<body>
+<div id="qiang-table-tree" class="qiang-table-tree">
+	<!--start of QTTHeader-->
+	<div class="QTTHeader">
+		  <div class="treeHeaderBox">
+			  <span class="tLabel">Country</span>
+			  <ul class="tValue">
+			  </ul>
+		  </div>
+	</div>
+	<!--end of QTTHeader-->
+	<!--start of QTTContainer-->
+	<div class="QTTContainer">
+	</div>
+	<!--end of QTTContainer-->
+</div>
+
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/QiangTableTree/jquery.qtt.min.js"></script>
+<script type="text/javascript" >
+		//a. define treeData 
+		var treeData = {
+			name:'2014 FIFA World Cup',
+			value:{},
+			children:[
+				{
+					name:'Group A',
+					value:{},
+					children:[]
+				},
+				{
+					name:'Group B',
+					value:{},
+					children:[]
+				}
+			]
+		 };
+		 
+		 //b. init QiangTableTree object
+		 var qttCtrl = window.QTT.qiangTableTree( {
+			TreeBox : $('#qiang-table-tree')
+		 });
+		 
+		 //c. update tree data
+		 qttCtrl.updateTree( treeData );
+		 
+		 //d. expand all tree node
+		 qttCtrl.expandAllNode();
+		 
+		 //e. shrink all tree node after 5 seconds
+		 setTimeout( function( ){
+			qttCtrl.shrinkAllNode();
+		 }, 5000 );
+		 
+</script>
+
+</body></html>

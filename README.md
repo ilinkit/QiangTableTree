@@ -9,6 +9,9 @@ A table tree JQuery plug-in，make your tree data more wonderfull  ：)
 ### a. css和js文件
 QiangTableTree是基于jQuery创建的Web插件，使用之前需要导入如下文件：
 1> jQuery.min.js：jQuery库文件。
+```
+   <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+```
 2> jquery.QTTCtrl.css：控件的样式定义，例如：
 ```
    <link href="assets/QiangTableTree/jquery.QTTCtrl.css" rel="stylesheet">
@@ -92,7 +95,7 @@ var treeData = {
 			createNodeNameHTML: function( nodeObj ){
 				return nodeObj.name ;
 			},
-            //根据节点数据生成节点的操作按钮，例如：编辑、删除			
+                        //根据节点数据生成节点的操作按钮，例如：编辑、删除			
 			createNodeBarHTML: function( nodeObj ){
 				return '' ;
 			},    
@@ -163,7 +166,7 @@ QTTCtrl.updateTree( treeData );       //更新数据到树中
 -返回：数据节点对象，如果ID对应的节点对象不存在，则返回undefined。
 -举例：
 ```javascript
-      //QTTCtrl 为通过window.QTT.qiangTableTree 函数生成的QiangTableTree对象，下同。
+          //QTTCtrl 为通过window.QTT.qiangTableTree 函数生成的QiangTableTree对象，下同。
 	  var dataNodeObj = QTTCtrl.getNodeByID( nodeID );
 ```	  
 ### b. getDomNodeByID
@@ -283,7 +286,7 @@ nodeArray: 数组类型，包含要取消的节点的ID。
 -返回：treeData , JSON对象，具体结构参考前面的说明。  
 -举例：
 ```javascript
-		var treeData = QTTCtrl.getTreeData();
+	var treeData = QTTCtrl.getTreeData();
 ```		
 __注意__：
 单独更改返回的treeData中的值，并不会改变当前树的树视图。
@@ -350,7 +353,7 @@ __注意__：
 	  
 -举例：
 ```javascript
-	    var keyword = 'Football' ;
+	        var keyword = 'Football' ;
 		var resultArray = QTTCtrl.findNode( keyword );
 		
 		//高亮显示查找结果
@@ -369,7 +372,7 @@ __注意__：
 -举例：
 ```javascript
 	    var keyword = 'BasketBall' ;
-		var resultArray = QTTCtrl.findNodeByName( keyword );
+	    var resultArray = QTTCtrl.findNodeByName( keyword );
 ```	  
 ### p. findNodeByValue
 与findNode的默认行为类似，只是匹配对象仅仅限定在节点的value属性。
@@ -381,7 +384,7 @@ __注意__：
 -举例：
 ```javascript
 	    var value = 1982 ;
-		var resultArray = QTTCtrl.findNodeByValue( value );
+	    var resultArray = QTTCtrl.findNodeByValue( value );
 ```		
 ### q. highlightNode
 高亮显示指定的节点，高亮状态的样式定义请参考自定义样式。

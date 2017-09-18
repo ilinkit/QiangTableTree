@@ -1,9 +1,6 @@
 # QiangTableTree
 A table tree JQuery plug-in，make your tree data more wonderfull  ：)
 
-# QiangTableTree
-A table tree JQuery plug-in，make your tree data more wonderfull  ：)
-
 # QiangTableTree User Guide
 The sentence '凤凰于飞，和鸣锵锵' from Chinese classical famous chapter. This means 'two phoenix danced together, making a beautiful sound.' 'Qiang' of QiangTableTree is the Chinese Pinyin of Chinese character '锵'. In China, the Phoenix is praised as "the king of birds", which means auspicious and noble. As we know, the Phoenix will build a nest in the "tree", so we named our jQuery plug-in QiangTableTree.
 We hope our TableTree controls can be optimized continuously, and help more developers to develop excellent application like the Phoenix base on QiangTableTree. 

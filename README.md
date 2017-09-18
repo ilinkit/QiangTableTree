@@ -1,6 +1,594 @@
 # QiangTableTree
 A table tree JQuery plug-in，make your tree data more wonderfull  ：)
 
+# QiangTableTree
+A table tree JQuery plug-in，make your tree data more wonderfull  ：)
+
+# QiangTableTree User Guide
+The sentence '凤凰于飞，和鸣锵锵' from Chinese classical famous chapter. This means 'two phoenix danced together, making a beautiful sound.' 'Qiang' of QiangTableTree is the Chinese Pinyin of Chinese character '锵'. In China, the Phoenix is praised as "the king of birds", which means auspicious and noble. As we know, the Phoenix will build a nest in the "tree", so we named our jQuery plug-in QiangTableTree.
+We hope our TableTree controls can be optimized continuously, and help more developers to develop excellent application like the Phoenix base on QiangTableTree. 
+Thanks.
+
+## 1. Getting started
+### a. css and js file
+QiangTableTree is a Web plug-in created based on jQuery. You need to import the following files before you use id：
+1> jQuery.min.js: jQuery file。
+```
+   <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+```
+2> jquery.QTTCtrl.css -- stylesheet file of QiangTableTree:
+```
+   <link href="assets/QiangTableTree/jquery.QTTCtrl.css" rel="stylesheet">
+```
+3> jquery.QTTCtrl.js -- JavaScript file of QiangTableTree:
+```
+   <script type="text/javascript" src="assets/QiangTableTree/jquery.QTTCtrl.js"></script>
+```
+4> blue.css -- custom skin file of QiangTableTree:
+```
+   <link href="assets/QiangTableTree/skin/blue.css" rel="stylesheet">
+```
+		 
+### b. HTML structure
+QiangTableTree displays a tree with a 'property value' table, it consists of two parts:
+1. QTTHeader: title part of table tree.
+2. QTTContainer: container part of table tree.
+For example：
+```HTML
+	    <div id="qiang-table-tree" class="qiang-table-tree">
+			<!--start of QTTHeader-->
+			<div class="QTTHeader">
+				  <div class="treeHeaderBox">
+					  <span class="tLabel">Country</span>
+					  <ul class="tValue">
+					  </ul>
+				  </div>
+			</div>
+			<!--end of QTTHeader-->
+			<!--start of QTTContainer-->
+			<div class="QTTContainer">
+				....
+			</div>
+			<!--end of QTTContainer-->
+		</div>
+```	  
+	  
+### c. Initialize tree data
+QiangTableTree use a recursive structure of the JSON object as the data source, for example：
+```javascript	  
+var treeData = {
+		name:'2014 FIFA World Cup',
+		value:{},
+		children:[
+			{
+				name:'Group A',
+				value:{},
+				children:[]
+			},
+			{
+				name:'Group B',
+				value:{},
+				children:[]
+			}
+		]
+	 };
+```	 
+Each node of the table tree must include 3 parts：
+-name: name of node, String type
+-value: value of node which contains specific business information, Object type
+-children：children node of current node, Array type
+
+ 
+### d. Create QiangTableTree object
+When creating QiangTableTree, we need to pass in a options object, including a jQuery object of the QiangTableTree container and some custom behavior functions.
+```javascript	
+	 var QTTCtrl = window.QTT.qiangTableTree( {
+		TreeBox : $('#qiang-table-tree'),
+		createNodeIconHTML: function( nodeObj ){
+			return '';
+		});
+```	
+
+The properties of options, TreeBox is required, and other custom behaviors functions are optional.
+The complete list of custom behavior functions is as follows:
+```javascript	
+			//Create icons view of node based on node data
+			createNodeIconHTML: function( nodeObj ){
+				return '';
+			}, 
+			//Create name view  of node based on node data
+			createNodeNameHTML: function( nodeObj ){
+				return nodeObj.name ;
+			},
+            //Create action buttons view  of node based on node data, such as: edit button, delete button			
+			createNodeBarHTML: function( nodeObj ){
+				return '' ;
+			},    
+			//Create value table view  of node based on node data
+			createNodeValueHTML: function( nodeObj ){
+				return '' ;
+			},
+			//Match tree node with keyword , if a node contains the keyword, return true, or else return false
+			findNodeContent: function( treeNode , keyword ){
+				return _findNodeContent( treeNode , keyword );
+			}
+```		 
+### e. Update data of QiangTableTree
+```javascript
+QTTCtrl.updateTree( treeData );       //Update table tree with treeData
+```  
+Note: Each operation of QiangTableTree is through the QiangTableTree object, which created by the QiangTableTree function.
+FIFA2014.html is a complete example of QiangTableTree. It's stylesheet file is worldcupteam.css and it's javascript file is worldcupteam.js.
+
+## 2. Structure composition
+### a. Table tree title and container
+The base structure as follows：
+```css
+	  .qiang-table-tree
+		  .QTTHeader
+		      .treeHeaderBox
+		  .QTTContainer
+			  .qttNode
+```			  
+### b. Concept of ViewNode and DataNode of table tree
+-ViewNode: The HTML node which defined width .QttNode class.
+-DataNode：The JavaScript object which include many properties( nodeID,name,value,children )in treeData。
+
+ViewNode and DataNode can be transformed each other:
+```javascript
+	  //Get nodeID of ViewNode
+	  var nodeID = QTTCtrl.getNodeIdByDomObj( domObj  );
+	  //Get DataNode by nodeID
+	  var dataNodeObj = QTTCtrl.getNodeByID( nodeID  );
+	  //Get ViewNode by nodeID, if the ViewNode of nodeID is non-existent, then return null
+	  var viewNodeObj = QTTCtrl.getDomNodeByID( nodeID );
+```	  
+### c. Icon,Text,View
+Each table tree node include: treeNode part and valueTable part
+	treeNode include:
+		  .tAction
+			 .t-icon : icon of node 
+			 .t-text : name of node
+			 (.bar-content): action button of node
+      
+	valueTable include：
+		  .tValue
+			 .td-1
+			 .td-2
+			 ...
+How to create each part of node, we can refer to the introduction of 'custom behavior' function.      
+	  
+## 3. Function of QiangTableTree
+Each tree node object contains a ID that uniquely identifies the current node in the current state. Most of the operations for tree nodes depend on the node ID (nodeID).
+When the data in QiangTableTree changes (for example, calling update function), the nodeID of table tree node is regenerated.
+
+### a. getNodeByID
+Get DataNode of nodeID
+-Parameter: nodeID, number type, the ID of the tree node
+-Return: DataNode of table tree, if the DataNode of nodeID is non-existent, then return undefined
+-Example: 
+```javascript
+	  var dataNodeObj = QTTCtrl.getNodeByID( nodeID );
+```	
+Note: QTTCtrl is the QiangTableTree object which created by window.QTT.qiangTableTree function 
+
+### b. getDomNodeByID
+Get ViewNode of nodeID
+-Parameter: nodeID, number type, the ID of the tree node
+-Return: DataNode of table tree, if the DataNode of nodeID is non-existent, then return null
+-Example: 
+```javascript
+	  var viewNodeObj = QTTCtrl.getDomNodeByID( nodeID );
+```		  
+### c. shrinkAllNode
+Shrink all node of table tree
+-Parameter: none
+-Return: true
+-Example: 
+```javascript
+	  QTTCtrl.shrinkAllNode();
+```
+### d. expandAllNode
+Expand all node of table tree。
+-Parameter: none
+-Return: true
+-Example: 
+```javascript
+	  QTTCtrl.expandAllNode();
+```	  
+### e. expandToNode
+Expand to the specified node, and all ancestor nodes and sibling nodes of the node are visible.
+-Parameter: 
+(nodeID): nodeID, number type, the ID of the tree node
+or 
+(nodeArray): nodeArray, array type, nodeArray include the nodeID of ViewNode which need to be expand.
+-Return: 
+If the parameter is nodeID, return true when expand success and false on failure.
+If the parameter is nodeArray, return true when all of nodes are expand success, or else return false.
+Usually, expand failure means the ViewNode with the nodeID is non-existent.
+
+-Example: 
+```javascript
+	  var nodeID = 3 ;
+	  QTTCtrl.expandToNode( nodeID );
+	  
+	  var nodeArray = [ 3 , 10 , 12 ] ;
+	  QTTCtrl.expandToNode( nodeArray );
+```	  
+### f. selectNode
+Mark the specified node as the selected state, and the style definition of the selected state is defined as the custom style.
+-Parameter:
+(nodeID): nodeID, number type, the ID of the tree node
+or 
+(nodeArray): nodeArray, array type, nodeArray include the nodeID of ViewNode which need to be selected.
+
+-Return: 
+If the parameter is nodeID, return true when selected success and false on failure.
+If the parameter is nodeArray, return true when all of nodes are selected success, or else return false.
+Usually, select failure means the ViewNode with the nodeID is non-existent.
+-Example: 
+```javascript
+	  var nodeID = 3 ;
+	  QTTCtrl.selectNode( nodeID );
+	  
+	  var nodeArray = [ 3 , 10 , 12 ] ;
+	  QTTCtrl.selectNode( nodeArray );
+```	  
+### g. cancelSelectNode
+Cancel the specified node the selected state。
+-Parameter:
+(nodeID): nodeID, number type, the ID of the tree node
+or 
+(nodeArray): nodeArray, array type, nodeArray include the nodeID of ViewNode which need to be cancel.
+
+-Return: 
+If the parameter is nodeID, return true when selected success and false on failure.
+If the parameter is nodeArray, return true when all of nodes are canceled success, or else return false.
+Usually, cancel failure means the ViewNode with the nodeID is non-existent.
+-Example: 
+```javascript
+	  var nodeID = 3 ;
+	  QTTCtrl.cancelSelectNode( nodeID );
+	  
+	  var nodeArray = [ 3 , 10 , 12 ] ;
+	  QTTCtrl.cancelSelectNode( nodeArray );
+```	  
+### h. cancelAllSelectNode
+Cancel all nodes of the selected state.
+-Parameter: none
+-Return: true
+-Example: 
+```javascript
+	  QTTCtrl.cancelAllSelectNode();
+```	  
+### i. updateTree
+Use the parameter tree data to create table tree.
+Caution: 
+Run this function will create new nodeID of table tree.
+-Parameter: treeData , JSON object. The structure reference the 'Initialize tree data' .
+-Return: true
+-Example: 
+```javascript
+	  var treeData = {
+		name:'rootNode',
+		value:{},
+		children:[
+			{
+				name:'childNode_1',
+				value:{},
+				children:[]
+			},
+			{
+				name:'childNode_2',
+				value:{},
+				children:[]
+			},
+			{
+				name:'childNode_3',
+				value:{},
+				children:[]
+			}
+		]
+	  };
+	  
+	  QTTCtrl.updateTree( treeData );
+```	  
+### j. getTreeData
+Return the tree data JSON object of the table tree.
+-Parameter: none
+-Return: treeData , JSON object. The structure reference the 'Initialize tree data' . 
+-Example: 
+```javascript
+	var treeData = QTTCtrl.getTreeData();
+```		
+Caution：
+It can not change the view of table tree through modify the tree data directly, 
+If you want change the value of specified node, you can use the function editNode.
+      
+### k. addNode
+Add new node to QiangTableTree.
+-Parameter: 
+    parentNodeID: the nodeID of the parent node
+    newNodeObj: new node object which include properties: name, value, children.
+-Return: 
+    If the parent node existent, return true , otherwise return false.
+-Example: 
+```javascript
+	  var parentNodeID = 1 ;
+	  var newNodeObj = {
+		 name:'NewNode',
+		 value:{},
+		 children:[]
+	  };
+	  QTTCtrl.addNode( parentNodeID , newNodeObj );
+```	
+Caution：
+Run this function will create new nodeID of table tree.
+      
+### l. editNode
+Edito the node of QiangTableTree.
+-Parameter: 
+    nodeID: number type, the ID of the tree node which will be edited
+    editedNodeObj: JSON object of new node.
+Caution:
+    You can only edit the name and value of the table tree node.
+	If you want modify the info of children nodes of specificed node, please use the function addNode and deletenNode.
+-Return: 
+ If the specificed node existent, return true , otherwise return false.
+
+-Example: 
+```javascript
+	  var nodeID = 1 ;
+	  var editedNodeObj = {
+		 name:'EditedNode',
+		 value:{}
+	  };
+	  QTTCtrl.newNodeObj( nodeID , editedNodeObj );
+```	  
+### m. deleteNode
+Delete the node of table tree. When you delete one node, then the children of this node are also deleted.
+-Parameter: 
+	nodeID: number type, the ID of the tree node which will be deleted
+-Return: 
+ If the specificed node existent, return true , otherwise return false.
+-Example: 
+```javascript
+	  var nodID = 5;
+	  QTTCtrl.deleteNode( nodeID );
+```
+Caution：
+When run the function deleteNode, the nodeID of table tree are also be updated.
+By convention, root node is not allowed to be deleted.
+	  
+### n. findNode
+To find the nodes which match the condition. By default, the QiangTableTree will match the name and value of node.
+You can get owner find behavior by redefining the function findNodeContent option.
+-Parameter: 
+    keyword：The keyword of condition. String type or number type.
+-Return: 
+    resultArray：array type, resultArray include the nodeID of DataNode which match the keyword condtion. 
+	  
+-Example: 
+```javascript
+	    var keyword = 'Football' ;
+		var resultArray = QTTCtrl.findNode( keyword );
+		
+		//Highlight the result of find
+		QTTCtrl.highlightNode( resultArray );
+		
+		//Expand to the tree nodes of find keyword
+		QTTCtrl.expandToNode( resultArray );
+```	  
+### o. findNodeByName
+To find the nodes which match the condition of name.
+-Parameter: 
+    keyword：The keyword of condition. String type or number type.
+-Return: 
+    resultArray：array type, resultArray include the nodeID of DataNode which match the keyword condtion. 
+    
+-Example: 
+```javascript
+	    var keyword = 'BasketBall' ;
+	    var resultArray = QTTCtrl.findNodeByName( keyword );
+```	  
+### p. findNodeByValue
+To find the nodes which match the condition of value.
+-Parameter: 
+    keyword：The keyword of condition. String type or number type.
+-Return: 
+    resultArray：array type, resultArray include the nodeID of DataNode which match the keyword condtion. 
+      
+-Example: 
+```javascript
+	    var value = 1982 ;
+	    var resultArray = QTTCtrl.findNodeByValue( value );
+```		
+### q. highlightNode
+Highlight the specificed table tree node. The style of highlight node to reference the customization of look and feel.
+Before highlight the specificed tree node, QiangTableTree while clear the highlight status of all node.
+-Parameter: 
+     nodeIDArray：array type, nodeIDArray include the nodeID of ViewNode which need to be highlighted.
+-Return: true
+	   
+-Example: 
+```javascript
+	   var nodeIDArray = [ 1 , 3 , 12] ;
+	   QTTCtrl.highlightNode( nodeIDArray );
+```	   
+### r. getNodeIdByDomObj
+Get table tree node by DOM object(.qttNode) of tree.
+-Parameter: domObj, DOM object
+-Return: nodeID, the nodeID of DOM table tree node. If the domObj is not a table tree node, return -1.
+-Example: 
+```javascript
+	  $('#qiang-table-tree .t-text').click( function(){
+		  var qttNode = $(this).closest( '.qttNode' );
+		  var nodeID = QTTCtrl.getNodeIdByDomObj( qttNode.get(0) );
+		  if( nodeID > 0 ){
+			var nodeObj = QTTCtrl.getNodeByID( nodeID ) ;
+			
+			//Do something by nodeObj
+			//...
+			
+		  } 
+	  });
+```	   
+   
+## 4. Customize QiangTableTree
+Different business types, tree nodes contain value attribute values are different, rendering methods, find methods are different.
+You can customize the look and behavior of QiangTableTree when it is initialized.
+
+### 1. Customization of behavior
+You can customize the behavior of QiangTableTree by defining the function properties of initialization option.
+For example: If we hope add a star icon before each tree node, we can do as follows:
+```javascript
+   //Use Glyphicons to create a star icon before node name
+   var createStarHTML = function( nodeObj ){
+	   return '<span class="glyphicon glyphicon-star"></span>' ;
+   }
+   
+   //Create QiangTableTree object
+   var qttCtrl = window.QTT.qiangTableTree({
+		createNodeIconHTML: createStarHTML
+   });
+```   
+The list of behavior functions of QiangTableTree are as follows：
+1. createNodeIconHTML
+Define the function of creating icon content of node. By default, the function return blank string('').
+-Parameter: 
+     nodeObj:current DataNode be rendering
+
+-Example: 
+```javascript
+	   //Use Glyphicons to create a star icon before node name
+	   var createStarHTML = function( nodeObj ){
+		   return '<span class="glyphicon glyphicon-star"></span>' ;
+	   }
+	   
+	   //Create QiangTableTree object
+	   var qttCtrl = window.QTTCtrl.qiangTableTree({
+			createNodeIconHTML: createStarHTML
+	   });
+```	  
+2. createNodeNameHTML
+Define the function of creating name content of node. By default, the function return the name of DataNode.
+-Parameter: 
+    nodeObj: current DataNode be rendering
+-Example: 
+```javascript 
+	   //Create QiangTableTree object
+	   var qttCtrl = window.QTTCtrl.qiangTableTree({
+			createNodeNameHTML: function( nodeObj ){
+				var nameHTML = '' ;
+				//if node is a team node, make it red
+				if( nodeObj.value.isTeam ){
+					nameHTML = '<span class="red-font">'+nodeObj.name+'</span>';
+				}
+				else{
+					nameHTML = nodeObj.name ;
+				}
+				
+				return nameHTML;
+			};
+	   });
+```	   
+3. createNodeBarHTML
+Define the function of creating bar content of node. By default, the function return blank string('').
+-Parameter: 
+	nodeObj: current DataNode be rendering
+-Example: 
+If we need add a button to each table tree node to edit the table tree node, we can do as follow:
+```javascript
+		//Create QiangTableTree object
+		var qttCtrl = window.QTTCtrl.qiangTableTree({
+			createNodeNameHTML: function( nodeObj ){
+				var barHTML = '<span class="edit-btn" data-teamid="'+nodeObj.value.teamID+'" >Edit</span>' ;
+				return barHTML;
+			};
+	    });
+```
+
+Of course, we hope the 'Edit Button' be shown only when the mouse hover the node, so we need define some style rule.
+```css
+		.qiang-table-tree .tAction>.edit-btn{
+			display:none;
+		}
+		.qiang-table-tree .tAction:hover>.edit-btn{
+			display:inline-block;
+		}
+```				
+4. createNodeValueHTML
+Define the function of creating value content of node. 
+-Parameter: 
+	nodeObj：current DataNode be rendering。
+-Example: 
+```javascript
+	    //Create QiangTableTree object
+		var qttCtrl = window.QTTCtrl.qiangTableTree({
+			createNodeValueHTML: function( nodeObj ){
+				var valueHTML = '';
+				var valueObj = nodeObj.value ;
+				
+				//Suppose we want to show value_1, value_2, value_3 attribute values in value object
+				valueHTML =  '<li class="td-1">'+(valueObj.value_1  )+'</li>'
+						   + '<li class="td-2">'+(valueObj.value_2  )+'</li>'
+						   + '<li class="td-3">'+(valueObj.value_3  )+'</li>'
+				
+				return valueHTML;
+			};
+	    });
+```	
+Of course, we hope each row of table achieve alignment effect, so we need define some style rule.
+```css
+		.qiang-table-tree .td-1,
+		.qiang-table-tree .td-2,
+		.qiang-table-tree .td-3{
+			width:12%;
+			text-align:center;
+		}
+		.qiang-table-tree .td-3{
+			color:#F00;
+			font-weight:bold;
+		}
+```		
+5. findNodeContent
+Define the match rule of QiangTableTree. This matching rule determines the retrieval behavior of the findNode function.
+Usually, different business will include different value properties, and also has different match rules.
+-Parameter: 
+       nodeObj: the table tree node be found
+       keyword: the keyword of find function
+-Return: 
+       If the nodeObj match the business rule, return true, or else return false
+-Example: 
+```javascript
+       //If we hope find the node with the isTeam property of value object is true, and name include the keyword
+	   var qttCtrl = window.QTTCtrl.qiangTableTree({
+			findNodeContent: function( nodeObj , keyword ){
+				var result = false ;
+				if( nodeObj.value.isTeam === true && nodeObj.name.indexOf( keyword ) >=0 ){
+					result = true ;
+				}
+				return result;
+			};
+	    });
+```  
+### 2. Customization of look and feel
+QiangTableTree support to customize the look and feel of table tree. You can define styles as follows:
+-The color of ViewNode line.
+-The color of font.
+-The style of hover status.
+-The style of selected status.
+-The style of highlight status.
+You can reference the css file: QiangTableTree/skin/default.css
+
+Because the QiangTableTree support the function of creating HTML code, we suggest you defined the business style(for example: .edit-btn) in business css file(for example: worldcupteam.css ).
+   
+## 5. Thanks & Feedback
+If you have any advice, welcome to email to me.[My Email](mailto:zhanglai5678@163.com)
+
+
+
+==============================================================中文指南===================================================
 # QiangTableTree 使用指导
 '凤凰于飞，和鸣锵锵'，源自中国的古典名篇，原意为'凤与凰在空中相偕而飞，一起鸣叫的声音悦耳嘹亮'，QiangTableTree中的Qiang就是汉字'锵'的拼音。在中国，凤凰被誉为'百鸟之王'，寓意吉祥、高贵。《诗经》里说："凤凰鸣矣，于彼高岗；梧桐生矣，于彼朝阳"，
 在中国，梧桐树一直被认为是能够吸引凤凰的树，用Qiang来命名树控件，希望我们的树控件能够不断优化，'筑巢引凤'，让更多的开发者能够基于QiangTableTree开发出优秀的应用。
@@ -559,4 +1147,5 @@ QiangTableTree支持自定义的外观，可以定义的基本样式包括：线
    
 ## 5. 感谢&欢迎反馈意见。
 如果您在使用QiangTableTree中有任何疑问或建议，欢迎联系：[我的邮箱](mailto:zhanglai5678@163.com)
+If you have any advice, welcome to email to me.[My Email](mailto:zhanglai5678@163.com)
 

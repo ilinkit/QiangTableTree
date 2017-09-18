@@ -585,7 +585,8 @@ If you have any advice, welcome to email to me.[My Email](mailto:zhanglai5678@16
 
 
 
-==============================================================中文指南===================================================
+===========================中文指南==============================
+
 # QiangTableTree 使用指导
 '凤凰于飞，和鸣锵锵'，源自中国的古典名篇，原意为'凤与凰在空中相偕而飞，一起鸣叫的声音悦耳嘹亮'，QiangTableTree中的Qiang就是汉字'锵'的拼音。在中国，凤凰被誉为'百鸟之王'，寓意吉祥、高贵。《诗经》里说："凤凰鸣矣，于彼高岗；梧桐生矣，于彼朝阳"，
 在中国，梧桐树一直被认为是能够吸引凤凰的树，用Qiang来命名树控件，希望我们的树控件能够不断优化，'筑巢引凤'，让更多的开发者能够基于QiangTableTree开发出优秀的应用。
@@ -1145,5 +1146,5 @@ QiangTableTree支持自定义的外观，可以定义的基本样式包括：线
 ## 5. 感谢&欢迎反馈意见。
 如果您在使用QiangTableTree中有任何疑问或建议，欢迎联系：[我的邮箱](mailto:zhanglai5678@163.com)
 
-######If you have any advice, welcome to email to me.[My Email](mailto:zhanglai5678@163.com)
+If you have any advice, welcome to email to me.[My Email](mailto:zhanglai5678@163.com)
 

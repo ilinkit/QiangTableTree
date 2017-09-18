@@ -1144,5 +1144,6 @@ QiangTableTree支持自定义的外观，可以定义的基本样式包括：线
    
 ## 5. 感谢&欢迎反馈意见。
 如果您在使用QiangTableTree中有任何疑问或建议，欢迎联系：[我的邮箱](mailto:zhanglai5678@163.com)
-If you have any advice, welcome to email to me.[My Email](mailto:zhanglai5678@163.com)
+
+######If you have any advice, welcome to email to me.[My Email](mailto:zhanglai5678@163.com)
 
